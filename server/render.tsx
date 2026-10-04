@@ -260,24 +260,24 @@ export function renderPrerenderedHtml(req: Request, bootstrap: BootstrapState, b
 
   if (bootstrap.route === "home") {
     return renderPostListSnapshot(
-      "Multilingual CMS — Independent publishing, thoughtfully built",
-      "A multilingual publishing platform for focused long-form writing and editorial workflows.",
+      "OCYOUSEF Blog — They Lied and Here's the Truth",
+      "This blog exists for one reason and one reason only: to expose what they hid and reveal the truth nobody dares to say.",
       bootstrap.posts || [],
     );
   }
 
   if (bootstrap.route === "archive") {
     return renderPostListSnapshot(
-      "Archive — Multilingual CMS",
-      "Browse all published articles from Multilingual CMS.",
+      "Archive — OCYOUSEF Blog",
+      "Browse every published article from OCYOUSEF Blog in one place.",
       bootstrap.posts || [],
     );
   }
 
   if (bootstrap.route === "tag") {
     return renderPostListSnapshot(
-      `${bootstrap.tag || "Tag"} — Multilingual CMS`,
-      `Published articles tagged with ${bootstrap.tag || "this topic"}.`,
+      `${bootstrap.tag || "Tag"} — OCYOUSEF Blog`,
+      `Published articles tagged with ${bootstrap.tag || "this topic"} on OCYOUSEF Blog.`,
       bootstrap.posts || [],
     );
   }

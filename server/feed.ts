@@ -23,8 +23,8 @@ export async function sendFeedXml(req: Request, res: Response) {
   const baseUrl = getBaseUrl(req);
   const posts = (await storage.getPosts({ published: true })).slice(0, 25);
   const selfUrl = `${baseUrl}/feed.xml`;
-  const siteTitle = "Multilingual CMS";
-  const siteDescription = "A multilingual publishing platform for focused long-form writing and editorial workflows.";
+  const siteTitle = "OCYOUSEF Blog";
+  const siteDescription = "This blog exists for one reason and one reason only: to expose what they hid and reveal the truth nobody dares to say.";
   const latestDate = posts[0]?.updatedAt || posts[0]?.publishedAt || posts[0]?.createdAt || new Date();
 
   const items = posts
