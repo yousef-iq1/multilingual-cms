@@ -38,7 +38,6 @@ export function PublicLayout({ children }: { children: React.ReactNode }) {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Close mobile menu on route change
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [location]);
@@ -46,7 +45,7 @@ export function PublicLayout({ children }: { children: React.ReactNode }) {
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/archive", label: "Archive" },
-    { href: "/platform", label: "Platform" },
+    { href: "/now", label: "Now" },
     { href: "/about", label: "About" },
   ];
 
@@ -63,7 +62,6 @@ export function PublicLayout({ children }: { children: React.ReactNode }) {
     <div className="min-h-screen flex flex-col relative selection:bg-primary/20 selection:text-primary scroll-smooth">
       <div className="bg-noise" />
       
-      {/* Header */}
       <header 
         className={`sticky top-0 z-40 w-full backdrop-blur-md bg-background/80 border-b border-border/50 transition-all duration-300 transform ${
           isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
@@ -72,11 +70,10 @@ export function PublicLayout({ children }: { children: React.ReactNode }) {
         <div className="max-w-5xl mx-auto px-6 h-20 flex items-center justify-between">
           <button onClick={handleLogoClick} className="group flex items-center gap-2 relative z-50">
             <span className="font-display text-2xl font-bold italic tracking-tighter text-foreground group-hover:text-primary transition-colors duration-300">
-              ATLAS
+              OC.YOUSEF
             </span>
           </button>
 
-          {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <Link 
@@ -91,7 +88,6 @@ export function PublicLayout({ children }: { children: React.ReactNode }) {
             ))}
           </nav>
 
-          {/* Mobile Menu Toggle */}
           <button 
             className="md:hidden relative z-50 p-2 text-foreground"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -101,7 +97,6 @@ export function PublicLayout({ children }: { children: React.ReactNode }) {
         </div>
       </header>
 
-      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div 
@@ -148,7 +143,6 @@ export function PublicLayout({ children }: { children: React.ReactNode }) {
         )}
       </AnimatePresence>
 
-      {/* Main Content with Page Transitions */}
       <main className="flex-1 max-w-5xl mx-auto w-full px-6 py-12 md:py-20 relative z-10">
         <AnimatePresence mode="wait">
           <motion.div
@@ -163,11 +157,10 @@ export function PublicLayout({ children }: { children: React.ReactNode }) {
         </AnimatePresence>
       </main>
 
-      {/* Footer */}
       <footer className="border-t border-border/10 py-6 relative z-10 bg-background/30 backdrop-blur-sm">
         <div className="max-w-5xl mx-auto px-6 flex flex-col items-center justify-center gap-4">
           <p className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground/60 font-medium">
-            &copy; {new Date().getFullYear()} ATLAS
+            &copy; {new Date().getFullYear()} OC.YOUSEF
           </p>
           <div className="flex items-center gap-6">
             <Link href="/disclaimers" className="text-[10px] uppercase tracking-widest text-muted-foreground/40 hover:text-primary transition-colors duration-300">
