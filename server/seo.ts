@@ -70,17 +70,17 @@ export async function buildSeoMeta(req: Request): Promise<SeoMeta> {
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "Multilingual CMS",
-    alternateName: "Multilingual CMS",
+    name: "OCYOUSEF Blog",
+    alternateName: "oc.yousef",
     url: `${baseUrl}/`,
     inLanguage: "en",
   };
 
   const defaultMeta: SeoMeta = {
-    siteName: "Multilingual CMS",
-    title: "Multilingual CMS - Independent publishing, thoughtfully built",
+    siteName: "OCYOUSEF Blog",
+    title: "OCYOUSEF Blog - They Lied and Here's the Truth",
     description:
-      "A multilingual publishing platform for focused long-form writing and editorial workflows.",
+      "This blog exists for one reason and one reason only: to expose what they hid and reveal the truth nobody dares to say.",
     ogImage: `${baseUrl}/og-image-v2.png`,
     ogType: "website",
     robots: "index, follow",
@@ -98,8 +98,8 @@ export async function buildSeoMeta(req: Request): Promise<SeoMeta> {
   if (req.path === "/archive") {
     return {
       ...defaultMeta,
-      title: "Archive - Multilingual CMS",
-      description: "Browse all published articles from Multilingual CMS.",
+      title: "Archive - OCYOUSEF Blog",
+      description: "Browse every published article from OCYOUSEF Blog in one place.",
     };
   }
 
@@ -107,8 +107,8 @@ export async function buildSeoMeta(req: Request): Promise<SeoMeta> {
     const tag = decodeURIComponent(req.path.replace(/^\/tags\//, ""));
     return {
       ...defaultMeta,
-      title: `${tag} - Multilingual CMS`,
-      description: `Published articles tagged with ${tag} on Multilingual CMS.`,
+      title: `${tag} - OCYOUSEF Blog`,
+      description: `Published articles tagged with ${tag} on OCYOUSEF Blog.`,
     };
   }
 
@@ -132,11 +132,11 @@ export async function buildSeoMeta(req: Request): Promise<SeoMeta> {
           dateModified: new Date(String(post.updatedAt || post.publishedAt || post.createdAt)).toISOString(),
           author: {
             "@type": "Person",
-            name: "Atlas Editorial",
+            name: "Yousef Ali",
           },
           publisher: {
             "@type": "Organization",
-            name: "Multilingual CMS",
+            name: "OCYOUSEF Blog",
             logo: {
               "@type": "ImageObject",
               url: `${baseUrl}/favicon-96x96.png`,
@@ -147,7 +147,7 @@ export async function buildSeoMeta(req: Request): Promise<SeoMeta> {
 
         return {
           ...defaultMeta,
-          title: `${translation.title || post.title} - Multilingual CMS`,
+          title: `${translation.title || post.title} - OCYOUSEF Blog`,
           description: description || defaultMeta.description,
           ogType: "article",
           ogImage: imageUrl,
@@ -163,7 +163,7 @@ export async function buildSeoMeta(req: Request): Promise<SeoMeta> {
       if (post?.published) {
         return {
           ...defaultMeta,
-          title: `${post.title} - Multilingual CMS`,
+          title: `${post.title} - OCYOUSEF Blog`,
           description: makeDescription(post.subtitle || post.content || "") || defaultMeta.description,
           ogType: "article",
           ogImage: toAbsoluteUrl(baseUrl, post.coverImage || undefined),
