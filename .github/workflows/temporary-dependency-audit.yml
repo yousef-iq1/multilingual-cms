@@ -11,5 +11,7 @@ jobs:
         with:
           node-version: 22
       - run: npm install --ignore-scripts
-      - name: Audit dependencies
-        run: npm audit --json || true
+      - name: Build
+        run: npm run build
+      - name: Audit runtime dependencies
+        run: npm audit --omit=dev --json || true
