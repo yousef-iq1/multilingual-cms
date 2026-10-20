@@ -1,38 +1,58 @@
 # Multilingual CMS
 
-Multilingual CMS is a full-stack multilingual publishing platform with a public reading experience and a protected editorial studio for writing, translating, and publishing content.
+**A full-stack publishing application built with React, TypeScript, Express, and PostgreSQL.**
 
-## Highlights
+This project has two sides: a public site for reading articles and a protected editorial studio for writing, translating, and publishing content. It covers the work behind a complete web product, from responsive UI and backend APIs to authentication, database access, and file uploads.
 
-- Public article, archive, and tag views
-- Protected editorial studio
-- Draft and publication workflow
-- Multiple language versions per article
-- Cover and inline image uploads
-- PostgreSQL persistence through a protected Supabase backend
-- Signed administrator sessions
-- Supabase Storage media uploads
-- RSS feed, sitemap, canonical metadata, and structured data
-- Responsive reading and editing experiences
+## What it does
 
-## Stack
+- **Public reading experience:** article pages, archives, tags, and language-specific content.
+- **Editorial workflow:** draft, edit, translate, and publish articles through a protected studio.
+- **Authentication:** administrator login with signed, HTTP-only session cookies.
+- **Media handling:** cover images and inline uploads through Supabase Storage.
+- **Content discovery:** RSS, sitemap, canonical metadata, and structured data.
+- **Responsive UI:** interfaces for both reading and editing across screen sizes.
 
-- React
-- TypeScript
-- Vite
-- Express
-- PostgreSQL / Supabase
-- Passport
-- TanStack Query
-- Tailwind CSS
+## Technology
 
-## Local development
+| Area | Stack |
+| --- | --- |
+| Frontend | React, TypeScript, Vite, Tailwind CSS |
+| Backend | Node.js, Express, protected API routes |
+| Data | PostgreSQL, Supabase, Edge Functions |
+| Authentication | Passport, signed sessions, HTTP-only cookies |
+| Client data | TanStack Query |
+| Deployment | Render |
+
+## Architecture
+
+```mermaid
+flowchart LR
+    A[React frontend] --> B[Express API]
+    B --> C[Protected Supabase Edge Functions]
+    C --> D[(PostgreSQL)]
+    C --> E[Supabase Storage]
+```
+
+The browser does not connect to the protected content tables directly. The Express backend handles the application's API and session flow, while protected Supabase Edge Functions handle content and media operations. Backend credentials are kept out of the browser.
+
+## What this project demonstrates
+
+- Building and organizing a complete React + Node.js application.
+- Connecting interactive interfaces to backend APIs and persistent data.
+- Managing authentication and access to protected features.
+- Implementing multi-step workflows, including drafts, translations, and publishing.
+- Preparing an application for deployment and environment-based configuration.
+
+## Run locally
 
 ```bash
 npm install
 cp .env.example .env
 npm run dev
 ```
+
+To configure a fresh database and protected backend, follow [DEPLOYMENT.md](DEPLOYMENT.md).
 
 ## Production
 
@@ -41,22 +61,6 @@ npm run build
 npm start
 ```
 
-## Backend design
+Before deploying, create a Supabase project, apply `supabase/SETUP.sql`, deploy the protected Edge Functions, and set the environment variables from `.env.example`.
 
-The public database tables use Row Level Security and are not exposed directly to anonymous browser clients. The Express server talks to protected Supabase Edge Functions for content operations and media uploads. Supabase server credentials remain inside Supabase rather than the Render environment.
-
-Administrator access uses a single deployment credential pair stored only in the server environment and a signed, HTTP-only session cookie.
-
-## Fresh deployment
-
-1. Create a Supabase project and apply `supabase/SETUP.sql`.
-2. Deploy the protected content and media Edge Functions.
-3. Configure the variables from `.env.example`.
-4. Deploy this repository as a Render Web Service.
-5. Verify the health endpoint, public posts, studio login, editing, translation, publication, and image upload.
-
-See `DEPLOYMENT.md` for the production checklist.
-
-## Repository safety
-
-Keep session secrets, administrator credentials, and protected backend tokens out of source control. No Supabase secret key is required in the web-service environment.
+**Security note:** keep session secrets, admin credentials, and backend tokens out of Git. Protected Supabase credentials belong in the protected backend environment, not browser configuration.
