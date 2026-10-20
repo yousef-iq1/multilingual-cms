@@ -1,50 +1,32 @@
 # Multilingual CMS
 
-**A full-stack publishing application built with React, TypeScript, Express, and PostgreSQL.**
+I built this as a full-stack publishing app, with a public site for readers and a separate editor for managing articles. It supports multiple languages, drafts, image uploads and a basic publishing workflow.
 
-This project has two sides: a public site for reading articles and a protected editorial studio for writing, translating, and publishing content. It covers the work behind a complete web product, from responsive UI and backend APIs to authentication, database access, and file uploads.
+The stack is **React, TypeScript, Vite, Express, PostgreSQL and Supabase**.
 
 ## What it does
 
-- **Public reading experience:** article pages, archives, tags, and language-specific content.
-- **Editorial workflow:** draft, edit, translate, and publish articles through a protected studio.
-- **Authentication:** administrator login with signed, HTTP-only session cookies.
-- **Media handling:** cover images and inline uploads through Supabase Storage.
-- **Content discovery:** RSS, sitemap, canonical metadata, and structured data.
-- **Responsive UI:** interfaces for both reading and editing across screen sizes.
+Readers can browse published articles, archives and tags. The editor has an authenticated studio for writing, translating and publishing content. Articles can include cover images and inline media.
 
-## Technology
+I also added the less visible parts of a publishing site: RSS, sitemap output, canonical metadata and structured data.
 
-| Area | Stack |
-| --- | --- |
-| Frontend | React, TypeScript, Vite, Tailwind CSS |
-| Backend | Node.js, Express, protected API routes |
-| Data | PostgreSQL, Supabase, Edge Functions |
-| Authentication | Passport, signed sessions, HTTP-only cookies |
-| Client data | TanStack Query |
-| Deployment | Render |
+## Frontend and backend
 
-## Architecture
+The React frontend talks to an Express API. I keep protected data operations behind Supabase Edge Functions, instead of exposing the database tables directly to the browser.
 
 ```mermaid
 flowchart LR
-    A[React frontend] --> B[Express API]
-    B --> C[Protected Supabase Edge Functions]
+    A[React UI] --> B[Express API]
+    B --> C[Protected Edge Functions]
     C --> D[(PostgreSQL)]
     C --> E[Supabase Storage]
 ```
 
-The browser does not connect to the protected content tables directly. The Express backend handles the application's API and session flow, while protected Supabase Edge Functions handle content and media operations. Backend credentials are kept out of the browser.
+Admin sessions use signed HTTP-only cookies. Database access and media uploads are handled on the server side. The app uses **TanStack Query** for client-side data fetching.
 
-## What this project demonstrates
+For someone reviewing my full-stack work, the useful parts are the editor workflow, API routes, authentication setup and database integration.
 
-- Building and organizing a complete React + Node.js application.
-- Connecting interactive interfaces to backend APIs and persistent data.
-- Managing authentication and access to protected features.
-- Implementing multi-step workflows, including drafts, translations, and publishing.
-- Preparing an application for deployment and environment-based configuration.
-
-## Run locally
+## Local setup
 
 ```bash
 npm install
@@ -52,15 +34,13 @@ cp .env.example .env
 npm run dev
 ```
 
-To configure a fresh database and protected backend, follow [DEPLOYMENT.md](DEPLOYMENT.md).
+To run the protected content features, you'll need a Supabase project, the SQL schema in `supabase/SETUP.sql`, the Edge Functions and the environment variables in `.env.example`.
 
-## Production
+The complete setup and deployment steps are in [DEPLOYMENT.md](DEPLOYMENT.md).
 
 ```bash
 npm run build
 npm start
 ```
 
-Before deploying, create a Supabase project, apply `supabase/SETUP.sql`, deploy the protected Edge Functions, and set the environment variables from `.env.example`.
-
-**Security note:** keep session secrets, admin credentials, and backend tokens out of Git. Protected Supabase credentials belong in the protected backend environment, not browser configuration.
+Keep admin credentials, session secrets and backend tokens out of source control.
