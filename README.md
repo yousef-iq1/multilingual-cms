@@ -44,3 +44,6 @@ npm start
 ```
 
 Keep admin credentials, session secrets and backend tokens out of source control.
+
+
+For a closer look at the backend, see [the API routes](server/routes.ts) for article creation, updates and uploads, and [authentication](server/auth.ts) for Passport login and signed cookie sessions.
